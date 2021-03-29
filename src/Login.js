@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import './login.css';
 import LoginButton from './LoginButton';
 import LogOutButton from './LogOutButton';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class Login extends React.Component {
   render() {

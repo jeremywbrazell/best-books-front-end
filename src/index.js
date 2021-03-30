@@ -5,14 +5,12 @@ import { Auth0Provider } from '@auth0/auth0-react';
 
 // TODO: wrap everything in Auth0
 ReactDOM.render(
-  <React.StrictMode>
      <Auth0Provider
         domain="dev-hvej6yca.us.auth0.com"
-        clientId="hfURHtqo9wWF4GPROsvfduV6j4FnlUWy"
-        redirectUri={window.location.origin}
+        clientId="mbOz8rPspP5IcPA2t9zp3furBh0mexAs"
+        redirectUri='http://localhost:3000'
     >
       <App />
-    </Auth0Provider>
-  </React.StrictMode>,
+    </Auth0Provider>,
   document.getElementById('root')
 );

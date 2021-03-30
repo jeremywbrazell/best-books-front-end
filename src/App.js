@@ -16,7 +16,7 @@ import IsLoadingAndError from './IsLoadingAndError';
 class App extends React.Component {
 
   render() {
-    console.log('app', this.props)
+    console.log('app', this.props.auth0)
     return(
       <>
         <Router>

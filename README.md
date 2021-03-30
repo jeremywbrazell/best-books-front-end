@@ -22,3 +22,23 @@ Discuss opportunities to share more of the work and then implement
 Speak up and discuss how to make changes and make sure that both understand the code and can walk through it all
 •	How will you approach each other and the challenge of building an application knowing that it is impossible for two people to be at the exact same place in understanding and skill level?
 share notes and ask questions when something is unclear
+
+# My Favorite Books
+
+**Author**: Jeremy/Julien
+**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+
+## Overview
+App provides authentication/authorization privileges with the aid of a button and Auth0.
+
+## Getting Started
+Dependencies on Reat Express & Auth0.
+
+## Architecture
+App is built with React, Bootstrap, Auth0.
+
+## Change Log
+15 pushes to the main.  Netlify authentication was pushed at 5:30.
+
+## Credit and Collaborations
+Thank you to Chance for helping us in the end.

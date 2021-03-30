@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import './myFavoriteBooks.css';
-// import { withAuth0 } from '@auth0/auth0-react';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class MyFavoriteBooks extends React.Component {
   render() {
@@ -17,4 +17,4 @@ class MyFavoriteBooks extends React.Component {
   }
 }
 
-export default MyFavoriteBooks;
+export default withAuth0(MyFavoriteBooks);

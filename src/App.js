@@ -9,8 +9,9 @@ import {
 } from "react-router-dom";
 import { withAuth0 } from '@auth0/auth0-react';
 import Profile from './Profile';
-import myFavoriteBooks from './MyFavoriteBooks';
+import MyFavoriteBooks from './MyFavoriteBooks';
 import Login from './Login';
+import IsLoadingAndError from './IsLoadingAndError';
 
 class App extends React.Component {
 
@@ -23,7 +24,7 @@ class App extends React.Component {
             <Header />
               <Switch>
                 <Route exact path="/">
-                  {this.props.auth0.isAuthenticated ? <Login /> :<myFavoriteBooks />}
+                  {this.props.auth0.isAuthenticated ? <Login /> : <MyFavoriteBooks />}
                   {/* TODO: if the user is logged in, render the `MyFavoriteBooks` component, if they are not, render the `Login` component */}
                 </Route>
                   <Route path="/profile" exact render = {props => <Profile {...props}/>}/>

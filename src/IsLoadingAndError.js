@@ -4,13 +4,12 @@ import { withAuth0 } from '@auth0/auth0-react';
 
 class IsLoadingAndError extends React.Component {
   render() {
-    const{auth0} = this.props.auth0;
     return(
-      auth0.isLoading ? 
+      this.props.auth0.isLoading ? 
         <div> Loading...</div>
         :
-        auth0.error ?
-        <div>Oops... {auth0.error.message}</div>
+        this.props.auth0.error ?
+        <div>Oops... {this.props.auth0.error.message}</div>
         :
         this.props.children
     )

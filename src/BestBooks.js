@@ -1,8 +1,11 @@
-import { render } from '@testing-library/react';
+
 import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
 import Carousel from 'react-bootstrap/Carousel'
+
+
+
 
 class BestBooks extends React.Component {
     constructor(props) {
@@ -23,9 +26,9 @@ class BestBooks extends React.Component {
         }).catch(error => { console.log('Something went wrong!') });
     }
     componentDidMount = () => {
-        const user = this.props.auth0.user;
+        const {user} = this.props.auth0;
         console.log(user);
-        this.handleBooks(user.email);
+        if (this.props.auth0){this.handleBooks(user.email)};
     };
     render() {
         return (

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import './myFavoriteBooks.css';
 import { withAuth0 } from '@auth0/auth0-react';
+import BestBooks from './BestBooks';
 
 class MyFavoriteBooks extends React.Component {
   render() {
@@ -12,6 +13,7 @@ class MyFavoriteBooks extends React.Component {
         <p>
           This is a collection of my favorite books
         </p>
+        <BestBooks />
       </Jumbotron>
     )
   }

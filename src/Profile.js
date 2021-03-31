@@ -4,8 +4,12 @@ import BestBooks from './BestBooks'
 class Profile extends Component {
   render() {
     const { user } = this.props.auth0;
-    return <div>Hello Captain {user.name}</div>;
-    <BestBooks />
+    return (
+      <>
+        <div>Hello Captain {user.name}</div>
+        <BestBooks data={this.props.user} />
+      </>
+    )
   }
 }
 

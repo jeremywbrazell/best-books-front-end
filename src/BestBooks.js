@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
@@ -24,7 +23,8 @@ class BestBooks extends React.Component {
     }
     componentDidMount = () => {
         const user = this.props.auth0.user;
-        console.log(user);
+        const user2 = this.props.data
+        console.log(user2);
         this.handleBooks(user.email);
     };
     render() {

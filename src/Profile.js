@@ -8,7 +8,7 @@ class Profile extends Component {
     return( 
     <>
     <div>Hello Captain {user.email}</div>;
-    <BestBooks />
+    <BestBooks data={user.email}/>
     </>
     
     )

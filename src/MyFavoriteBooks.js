@@ -15,7 +15,7 @@ class MyFavoriteBooks extends React.Component {
           This is a collection of my favorite books
         </p>
         <BookFormModal 
-        // data={this.props.auth0}
+        data={this.props.auth0}
         />
         <BestBooks />
       </Jumbotron>

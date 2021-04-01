@@ -14,7 +14,7 @@ class MyFavoriteBooks extends React.Component {
           This is a collection of my favorite books
         </p>
 
-        <BestBooks data={this.props.data}/>
+        <BestBooks />
 
       </Jumbotron>
     )

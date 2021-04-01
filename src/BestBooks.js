@@ -17,25 +17,25 @@ class BestBooks extends React.Component {
     }
     
 
-    handleBooks = async() => {
+    handleBooks = async(id) => {
         // const SERVER = process.env.PORT;
         const { user , hasAuth } = this.props.auth0;
-        await axios.get('http://localhost:3001/booker', { params: { email: user.email, auth: hasAuth } }).then(lib => {
+        await axios.get('http://localhost:3001/booker', { params: { email: id } }).then(lib => {
             const data = lib.data;
             this.setState({ bookData: data.books })
             console.log("handleBooks data: ", data);
         }).catch(error => { console.log('Something went wrong!', error) });
     }
     componentDidMount = () => {
-        const {user} = this.props.auth0;
+        const user = this.props.auth0;
         console.log(user);
-        if (this.props.auth0){this.handleBooks()};
+        if (this.props.auth0){this.handleBooks(user.email)};
         console.log("state: ", this.state.bookData)
     };
     render() {
         return (
             <>
-             {this.props.auth0 &&
+  
                    
                        <Carousel>
                      
@@ -44,7 +44,7 @@ class BestBooks extends React.Component {
                     <img
                         className="d-block w-100"
                         src=""
-                        alt="First slide"
+                        alt={i}
                     />
                     <Carousel.Caption>
                         <h3>{el.title}</h3>
@@ -52,9 +52,10 @@ class BestBooks extends React.Component {
         
                     </Carousel.Caption>
                     </Carousel.Item>)
-                })}
+                })
+                }
                 </Carousel>
-}
+
                 
             </>
         )

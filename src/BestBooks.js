@@ -12,7 +12,6 @@ class BestBooks extends React.Component {
         }
     }
 
-
     handleBooks = async (id) => {
         // const SERVER = process.env.PORT;
         await axios.get('http://localhost:3001/books', { params: { email: id } }).then(bookData => {
@@ -22,8 +21,8 @@ class BestBooks extends React.Component {
         }).catch(error => { console.log('Something went wrong!') });
     }
     componentDidMount = () => {
-        const user = this.props.auth0.user;
-        const user2 = this.props.data
+        const user = this.props.auth0;
+        const user2 = this.props.data;
         console.log(user2);
         this.handleBooks(user.email);
     };

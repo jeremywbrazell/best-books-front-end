@@ -1,0 +1,12 @@
+.fav-books-car{
+
+    display: grid;
+    justify-content: center;
+    width: 500px;
+
+}
+
+.carousel-inner{
+    background-color: white;
+    color: #000;
+}

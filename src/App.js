@@ -14,6 +14,21 @@ import Login from './Login';
 import IsLoadingAndError from './IsLoadingAndError';
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      user='',
+      bookList=[],
+      displayModal = false,
+
+    }
+  }
+
+  displayMode = () =>{
+    this.setState({displayModal: true})
+  }
+
+
 
   render() {
     console.log('app', this.props.auth0)
@@ -24,11 +39,12 @@ class App extends React.Component {
             <Header />
               <Switch>
                 <Route exact path="/">
-                  {this.props.auth0.isAuthenticated ? <MyFavoriteBooks /> : <Login /> }
-                  {/* TODO: if the user is logged in, render the `MyFavoriteBooks` component, if they are not, render the `Login` component */}
+                  {this.props.auth0.isAuthenticated  
+                  ? <MyFavoriteBooks states={this.state} mode={displayMode} books={this.state.bookList} /> 
+                  : <Login /> }
                 </Route>
                   <Route path="/profile" exact render = {props => <Profile {...props}/>}/>
-                {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+      
                
               </Switch>
             <Footer />

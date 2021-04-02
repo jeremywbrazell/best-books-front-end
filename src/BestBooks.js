@@ -2,72 +2,53 @@ import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
 import Carousel from 'react-bootstrap/Carousel'
+// import "https://unsplash.com/photos/RrhhzitYizg"
 
 class BestBooks extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            bookData: [],
+  constructor(props) {
+      super(props)
+      this.state ={
+          books: [],
 
-        }
-    }
-
+      }
+  }
     handleBooks = async (id) => {
         // const SERVER = process.env.PORT;
         await axios.get('http://localhost:3001/books', { params: { email: id } }).then(bookData => {
-            const data = bookData.data;
-            this.setState({ bookData: data })
+            const data = bookData.data[0];
+            // this.setState({ books: data })
             console.log(data);
+            this.props.handleBook(data)
+            this.setState({books: data.books})
+            console.log('in handleBooks',data);
         }).catch(error => { console.log('Something went wrong!') });
     }
     componentDidMount = () => {
         const user = this.props.auth0;
-        const user2 = this.props.data;
-        console.log(user2);
-        this.handleBooks(user.email);
+        {user.isAuthenticated && this.handleBooks(user.user.email)};
+        console.log('mount', this.state.books);
     };
     render() {
+        console.log(this.state.books);
+   
         return (
-            <>
                 <Carousel>
+                    {this.state.books.map((item) => (
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="holder.js/800x400?text=First slide&bg=373940"
-                            alt="First slide"
+                            src="https://unsplash.com/photos/RrhhzitYizg"
+                            alt=""
                         />
-                        <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </Carousel.Caption>
+                        {/* <Carousel.Caption as="div"> */}
+                            <h3>{item.name}</h3>
+                            <p>{item.description}</p>
+                        {/* </Carousel.Caption> */}
                     </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="holder.js/800x400?text=Second slide&bg=282c34"
-                            alt="Second slide"
-                        />
-
-                        <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="holder.js/800x400?text=Third slide&bg=20232a"
-                            alt="Third slide"
-                        />
-
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+                    ))}
                 </Carousel>
-            </>
         )
+
     }
 }
 

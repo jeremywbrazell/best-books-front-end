@@ -11,44 +11,43 @@ import { withAuth0 } from '@auth0/auth0-react';
 import Profile from './Profile';
 import MyFavoriteBooks from './MyFavoriteBooks';
 import Login from './Login';
-import IsLoadingAndError from './IsLoadingAndError';
+
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      user='',
-      bookList=[],
-      displayModal = false,
+      user: '',
+      bookList: [],
+      displayModal: false,
 
     }
   }
 
-  displayMode = () =>{
-    this.setState({displayModal: true})
+  logger = (key, val) =>{
+    this.setState({key: val})
   }
-
-
 
   render() {
     console.log('app', this.props.auth0)
     return(
       <>
         <Router>
-          <IsLoadingAndError>
+          {/* <IsLoadingAndError> */}
             <Header />
               <Switch>
                 <Route exact path="/">
                   {this.props.auth0.isAuthenticated  
-                  ? <MyFavoriteBooks states={this.state} mode={displayMode} books={this.state.bookList} /> 
+                  ? <MyFavoriteBooks user={this.user} change={this.logger}  /> 
                   : <Login /> }
                 </Route>
-                  <Route path="/profile" exact render = {props => <Profile {...props}/>}/>
-      
+                  <Route path="/profile" exact > 
+                  <Profile />
+                  </Route>
                
               </Switch>
             <Footer />
-          </IsLoadingAndError>
+          {/* </IsLoadingAndError> */}
         </Router>
       </>
     )

@@ -27,12 +27,19 @@ class BookFormModal extends React.Component {
         return results;
     }
     deleteBook = async () => {
-        const user = this.props.auth0.user;
-        await axios.delete('localhost:3001/books',
-            {
-                email: user.email,
-                title: this.state.badBook
+        this.props.handleDelete(this.state.badBook);
+        const user = this.props.user.email;
+        const target = this.props.index;
+        console.log(target);
+        const newLib = await axios.delete(`localhost:3001/books/${target}`,
+            {params: {
+                email: user,
+                index: target}
             })
+            const updated = newLib.filter((book, i) => {
+                return i !== target;
+            })
+            this.props.updateLib(updated);
     }
 
     render() {

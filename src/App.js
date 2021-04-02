@@ -12,7 +12,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import axios from 'axios';
+
 
 class App extends React.Component {
 
@@ -20,33 +20,37 @@ class App extends React.Component {
     super(props)
     this.state = {
       bookData: [],
-      user: '',
+      user: {},
       newBook: {},
       indexOfChanges: -1,
       showModal: false,
+      bad: ''
     }
   }
-handleModal =() => {
-  this.setState({showModal: true})
+handleModal = (update) => {
+  this.setState({user: update})
+  this.setState({indexOfChanges: update.books.indexOf(this.state.bad)})
 }
-
-handleBookData= (newBooks) => {
-  this.setState({bookData:newBooks})
+handleDelete = (bookToBeDeleted) => {
+  console.log(this.state.user);
+  const temp = bookToBeDeleted;
+  let index = 0;
+  const list = this.state.user.books; 
+  list.forEach((book, idx) => {
+    if(book.name === temp) {
+      index = idx;
+    }
+  })
+  this.setState({bad: temp})
+  this.setState({indexOfChanges: index})
 }
-// handleBooks = async (id) => {
-//   // const SERVER = process.env.PORT;
-//   await axios.get('http://localhost:3001/books', { params: { email: id } }).then(bookData => {
-//       const data = bookData.data[0].books;
-//       // this.setState({ books: data })
-//       this.setState({bookData: data})
-//       console.log('in handleBooks',data);
-//   }).catch(error => { console.log('Something went wrong!') });
-// }
-// componentDidMount = () => {
-//   const user = this.props.auth0;
-//   {user.isAuthenticated && this.handleBooks(user.user.email)};
-//   console.log('mount', this.state.books);
-// };
+handleBookData = (library) => {
+  console.log(library);
+  this.setState({user:library})
+}
+updateLib = (books) => {
+  this.setState({bookData: books})
+}
   render() {
     console.log('isbi;usbsui;bs', this.props.auth0)
     console.log(this.state);
@@ -60,7 +64,7 @@ handleBookData= (newBooks) => {
               {this.props.auth0.isAuthenticated ? 
               <>
               <MyFavoriteBooks books={this.state.bookData} getBooks={this.handleBookData}/> 
-              <BookFormModal email={this.user} />
+              <BookFormModal email={this.state.user} handleDelete = {this.handleDelete} index = {this.state.indexOfChanges} updateLib = {this.updateLib} />
               </>
               : <Login />}
             </Route>

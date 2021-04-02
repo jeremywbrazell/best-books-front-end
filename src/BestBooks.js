@@ -25,7 +25,7 @@ class BestBooks extends React.Component {
     }
     componentDidMount = () => {
         const user = this.props.auth0;
-        {user.isAuthenticated && this.handleBooks(user.user.email)};
+        user.isAuthenticated && this.handleBooks(user.user.email);
         console.log('mount', this.state.books);
     };
     render() {

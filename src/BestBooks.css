@@ -10,3 +10,9 @@
     background-color: white;
     color: #000;
 }
+
+.fav-books-car{
+    border-radius: 3px;
+    border-color: darkred;
+    min-height: 150px;
+}

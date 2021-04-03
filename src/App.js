@@ -17,15 +17,13 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      user: '',
+      user: {},
       bookList: [],
-      displayModal: false,
-
     }
   }
 
   logger = (key, val) =>{
-    this.setState({key: val})
+    this.setState(`${key}: ${val}`)
   }
 
   render() {
@@ -42,7 +40,7 @@ class App extends React.Component {
                   : <Login /> }
                 </Route>
                   <Route path="/profile" exact > 
-                  <Profile />
+                  <Profile change={this.logger}/>
                   </Route>
                
               </Switch>

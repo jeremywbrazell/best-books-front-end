@@ -18,23 +18,28 @@ constructor(props){
   }
 }
 
-handleBooks = async () => {
+handleBooks = async (euser) => {
   const { user } = this.props.auth0;
-  await axios.get('http://localhost:3001/books', { params: { email: user.email } }).then(lib => {
-      const data = lib.data.books;
-      this.props.booker( data )
-      console.log("handlebook state setted: ",this.state.bookData)
+  this.setState({user: user})
+  console.log('handlebooks user: ', user)
+  await axios.get('http://localhost:3001/books', { params: { email: euser } }).then(lib => {
+      const data = lib;
+      console.log("DATA??: ", data)
+      // this.props.change( 'user', data )
+      this.setState({user: data})
+      console.log("handlebook state setted: ",this.state.user)
   }).catch(error => { console.log('Something went wrong!', error) });
 }
-
+//username nonsense
 componentDidMount = () => {
-  const user = this.props.auth0;
-  this.handleBooks(user.user.email)
+  const {user, isAuthenticated} = this.props.auth0;
+  isAuthenticated && this.handleBooks(user.email)
 }; 
+
   render() {
+    console.log("My Fav Book State: ", this.state)
     return(
-      <Jumbotron className='jumboo'
-      >
+      <Jumbotron className='jumboo'>
         <h1>My Favorite Books</h1>
         <p>This is a collection of my favorite books</p>
 

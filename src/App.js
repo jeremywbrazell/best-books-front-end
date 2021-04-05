@@ -36,19 +36,20 @@ handleDelete = (bookToBeDeleted) => {
   console.log('delete: ', this.state.user);
   const temp = bookToBeDeleted;
   const list = this.state.user.books; 
-  const count=list.reduce((acc, curr, idx)=>{
+  const count = list.reduce((acc, curr, idx)=>{
     if (curr.email===temp){
-      acc=idx
+      acc=idx}
       return acc
-    }
-    return acc
-  },-1)
+  },0)
+
   
+  // let flex={};
   this.setState({bad: temp})
   this.setState({indexOfChanges: count})
 }
 handleBookData = (library) => {
-  console.log(library);
+  console.log("handle book data", library);
+  this.flex=library
   this.setState({user:library,  
                   bookData: library.books})
 }
@@ -67,7 +68,9 @@ updateLib = (books) => {
             <Route exact path="/">
               {!this.props.auth0.isAuthenticated  
               ? <><Login/></>
-              : <div className="logged-in"><MyFavoriteBooks use={this.state.user} books={this.state.bookData} getBooks={this.handleBookData}/> 
+              : <div className="logged-in">
+                <h2>{`Hello ${this.props.auth0.user.name}`}</h2>
+                <MyFavoriteBooks  use={this.state.user} books={this.state.bookData} getBooks={this.handleBookData}/> 
               <BookFormModal email={this.state.user.email} handleDelete = {this.handleDelete} 
                               index = {this.state.indexOfChanges} updateLib = {this.updateLib} />
               </div>

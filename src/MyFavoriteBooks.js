@@ -13,7 +13,7 @@ class MyFavoriteBooks extends React.Component {
         <p>
           This is a collection of my favorite books
         </p>
-        <BestBooks library={this.props.books} handleBook={this.props.getBooks} />
+        <BestBooks usse={this.props.use} library={this.props.books} handleBook={this.props.getBooks} />
       </Jumbotron>
     )
   }

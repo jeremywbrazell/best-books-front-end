@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import './App.css'
 // import IsLoadingAndError from './IsLoadingAndError';
 import Footer from './Footer';
 import { withAuth0 } from '@auth0/auth0-react';
@@ -27,33 +28,36 @@ class App extends React.Component {
       bad: ''
     }
   }
-handleModal = (update) => {
-  this.setState({user: update})
-  this.setState({indexOfChanges: update.books.indexOf(this.state.bad)})
-}
+// handleModal = (update) => {
+//   if(!this.state.user){this.setState({user: update})}
+//   this.setState({indexOfChanges: update.books.indexOf(this.state.bad)})
+// }
 handleDelete = (bookToBeDeleted) => {
-  console.log(this.state.user);
+  console.log('delete: ', this.state.user);
   const temp = bookToBeDeleted;
-  let index = 0;
   const list = this.state.user.books; 
-  list.forEach((book, idx) => {
-    if(book.name === temp) {
-      index = idx;
+  const count=list.reduce((acc, curr, idx)=>{
+    if (curr.email===temp){
+      acc=idx
+      return acc
     }
-  })
+    return acc
+  },-1)
+  
   this.setState({bad: temp})
-  this.setState({indexOfChanges: index})
+  this.setState({indexOfChanges: count})
 }
 handleBookData = (library) => {
   console.log(library);
-  this.setState({user:library})
+  this.setState({user:library,  
+                  bookData: library.books})
 }
 updateLib = (books) => {
   this.setState({bookData: books})
 }
   render() {
-    console.log('isbi;usbsui;bs', this.props.auth0)
-    console.log(this.state);
+
+    console.log('book form modal state: ', this.state);
     return (
       <>
         <Router>
@@ -61,12 +65,13 @@ updateLib = (books) => {
           <Header />
           <Switch>
             <Route exact path="/">
-              {this.props.auth0.isAuthenticated ? 
-              <>
-              <MyFavoriteBooks books={this.state.bookData} getBooks={this.handleBookData}/> 
-              <BookFormModal email={this.state.user} handleDelete = {this.handleDelete} index = {this.state.indexOfChanges} updateLib = {this.updateLib} />
-              </>
-              : <Login />}
+              {!this.props.auth0.isAuthenticated  
+              ? <><Login/></>
+              : <div className="logged-in"><MyFavoriteBooks use={this.state.user} books={this.state.bookData} getBooks={this.handleBookData}/> 
+              <BookFormModal email={this.state.user.email} handleDelete = {this.handleDelete} 
+                              index = {this.state.indexOfChanges} updateLib = {this.updateLib} />
+              </div>
+               }
             </Route>
             <Route path="/profile" exact render={props => <Profile {...props} />} />
           </Switch>

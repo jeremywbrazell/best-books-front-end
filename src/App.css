@@ -1,0 +1,12 @@
+
+body{
+    display: grid;
+    justify-content: center;
+}
+
+.logged-in{
+    width:600px;
+    display:grid;
+    justify-content: center;
+
+}

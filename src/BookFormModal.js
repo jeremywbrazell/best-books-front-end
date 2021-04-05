@@ -9,9 +9,9 @@ class BookFormModal extends React.Component {
         super(props)
         this.state = {
             email: this.props.email,
-            bookName: '',
-            bookDescription: '',
-            bookStatus: '',
+            newBook:{bookName: '',
+                    bookDescription: '',
+                    bookStatus: '',},
             badBook: ''
 
         }
@@ -22,13 +22,14 @@ class BookFormModal extends React.Component {
         const user = this.props.auth0.user;
         const results = await axios.post('http://localhost:3001/books', {
             email: user.email,
-            aBook: { name: this.state.bookName, description: this.state.bookDescription, status: this.state.bookStatus }
+            aBook: {name: this.state.newBook.bookName, description: this.state.newBook.bookDescription, status: this.state.newBook.bookStatus}
         })
         return results;
     }
+
     deleteBook = async () => {
         this.props.handleDelete(this.state.badBook);
-        const user = this.props.user.email;
+        const user = this.props.email;
         const target = this.props.index;
         console.log(target);
         const newLib = await axios.delete(`localhost:3001/books/${target}`,
@@ -46,9 +47,9 @@ class BookFormModal extends React.Component {
         return (
             <>
                 <Form>
-                    <input placeholder="title" onChange={(e) => this.setState({ bookName: e.target.value })} />
-                    <input placeholder="description" onChange={(e) => this.setState({ bookDescription: e.target.value })} />
-                    <input placeholder="status" onChange={(e) => this.setState({ bookStatus: e.target.value })} />
+                    <input placeholder="title" onChange={(e) => this.setState({newBook:{...{name: this.state.newBook}, bookName: e.target.value}})} />
+                    <input placeholder="description" onChange={(e) => this.setState({newBook:{...this.state.newBook, bookDescription: e.target.value}})} />
+                    <input placeholder="status" onChange={(e) => this.setState({newBook:{...this.state.newBook, bookStatus: e.target.value}})} />
                 </Form>
                 <button onClick={this.submitBook}>
                     Add Book
